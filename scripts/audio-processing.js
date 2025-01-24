@@ -1,5 +1,5 @@
 let audioContext, audioElement, audioSource, analyser, dataArray, bufferLength;
-let amplitudeDisplay, frequencyDisplay, keyDisplay, bpmDisplay;
+let amplitudeDisplay, frequencyDisplay;
 let playButtonCreated = false; // Track if play button has already been created
 let isPlaying = false; // Track if the audio is playing
 
@@ -84,17 +84,11 @@ function createDisplayElementIfNotExists() {
     if (!frequencyDisplay) {
         frequencyDisplay = createDisplayElement('Frequency: 0 Hz');
     }
-    if (!keyDisplay) {
-        keyDisplay = createDisplayElement('Key: N/A');
-    }
-    if (!bpmDisplay) {
-        bpmDisplay = createDisplayElement('BPM: N/A');
-    }
 
     // Append elements to the DOM if they haven't been appended yet
     const controlsContainer = document.getElementById('audioControls');
     if (controlsContainer && !controlsContainer.contains(amplitudeDisplay)) {
-        controlsContainer.append(amplitudeDisplay, frequencyDisplay, keyDisplay, bpmDisplay);
+        controlsContainer.append(amplitudeDisplay, frequencyDisplay);
     }
 }
 
@@ -132,10 +126,9 @@ function formatTime(seconds) {
     return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
 }
 
-// Setup the UI for Amplitude, Frequency, Key, BPM
+// Setup the UI for Amplitude and Frequency
 function setupUIControls() {
     createDisplayElementIfNotExists();
-    // No need to call updateAudio here, it's handled in ui-controls.js
 }
 
 // Update the displays with the latest data
@@ -166,26 +159,7 @@ function updateDisplays() {
         const nyquist = audioContext.sampleRate / 2;
         const frequency = maxIndex * nyquist / dataArray.length;
         frequencyDisplay.textContent = `Frequency: ${frequency.toFixed(2)} Hz`;
-
-        // BPM Detection (You can use Tone.js or Beatdetektor for actual BPM analysis)
-        detectBPM();
-
-        // Key Detection (This would require a pitch detection library, simplified for now)
-        detectKey();
     }
-}
-
-// BPM detection (using Tone.js as an example)
-function detectBPM() {
-    // Example using Tone.js BPM (you could use Beatdetektor or another method)
-    const bpm = Tone.Transport.bpm.value; // This will need Tone.js to be active
-    bpmDisplay.textContent = `BPM: ${bpm.toFixed(2)}`;
-}
-
-// Key Detection (for now, we can use a simplified placeholder)
-function detectKey() {
-    const key = 'C Major'; // Example placeholder value (replace with real pitch detection)
-    keyDisplay.textContent = `Key: ${key}`;
 }
 
 // Draw the waveform
@@ -224,7 +198,7 @@ function drawWaveform() {
             ctx.lineTo(canvas.width, canvas.height / 2);
             ctx.stroke();
 
-            // Update displays for amplitude, frequency, key, BPM
+            // Update displays for amplitude, frequency
             updateDisplays();
         }
         // Continue the loop to draw the waveform, whether paused or playing
