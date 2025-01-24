@@ -1,0 +1,26 @@
+{
+  "name": "music-website-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jiroshima/Music-Website-Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jiroshima/Music-Website-Project/issues"
+  },
+  "homepage": "https://github.com/Jiroshima/Music-Website-Project#readme",
+  "description": "",
+  "dependencies": {
+    "dat.gui": "^0.7.9",
+    "gsap": "^3.12.7",
+    "p5": "^1.11.3",
+    "tone": "^15.0.4"
+  }
+}
