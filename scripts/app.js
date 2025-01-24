@@ -1,31 +1,38 @@
-document.addEventListener('DOMContentLoaded', () => {
-    console.log("App initialized");
-
-    const fileInput = document.getElementById('fileInput');
-    
-    fileInput.addEventListener('change', (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            setupAudioProcessing(file);
-        }
-    });
-
-    // Initialize the UI controls
+// Wait until the DOM is fully loaded
+window.addEventListener('DOMContentLoaded', (event) => {
     setupUIControls();
 });
 
 function setupUIControls() {
-    const gui = new dat.GUI();
-    gui.add(controls, 'pitch', 0.5, 2.0).step(0.01).onChange(updateAudio);
-    gui.add(controls, 'playbackRate', 0.5, 2.0).step(0.01).onChange(updateAudio);
-    gui.add(controls, 'volume', 0.0, 1.0).step(0.01).onChange(updateAudio);
-
-    console.log("UI controls initialized");
-}
-
-function updateAudio() {
-    if (audioElement) {
-        audioElement.playbackRate = controls.playbackRate;
-        audioElement.volume = controls.volume;
+    // Get the playback slider and check if it exists
+    const playbackSlider = document.getElementById('playbackSlider');
+    
+    if (!playbackSlider) {
+        console.error('Playback slider not found!');
+        return;
     }
+
+    // Set default values for playback slider
+    playbackSlider.min = 0;
+    playbackSlider.max = 100;
+    playbackSlider.value = 0;
+    playbackSlider.step = 0.1;
+
+    // Add an event listener to update time on playback slider change
+    playbackSlider.addEventListener('input', (e) => {
+        const currentTimeDisplay = document.getElementById('currentTime');
+        const durationTimeDisplay = document.getElementById('durationTime');
+        
+        // Assuming you have an audio object to get current time and duration
+        const audioDuration = 120; // Replace with actual audio duration
+        const currentTime = (e.target.value / 100) * audioDuration;
+        
+        const minutes = Math.floor(currentTime / 60);
+        const seconds = Math.floor(currentTime % 60);
+        currentTimeDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        
+        const minutesDuration = Math.floor(audioDuration / 60);
+        const secondsDuration = Math.floor(audioDuration % 60);
+        durationTimeDisplay.textContent = `${minutesDuration}:${secondsDuration < 10 ? '0' : ''}${secondsDuration}`;
+    });
 }

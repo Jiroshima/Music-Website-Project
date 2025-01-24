@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add sliders for pitch, playbackRate, and volume
     const pitchControl = gui.add(controls, 'pitch', 0.5, 2.0).step(0.01).name('Pitch');
     
-    // Debugging: Check if slider events are triggering
     pitchControl.onChange((value) => {
         console.log('Pitch changed to:', value);  // Should print when slider changes
         updateAudio();
@@ -30,15 +29,18 @@ document.addEventListener('DOMContentLoaded', () => {
     gui.add(controls, 'volume', 0.0, 1.0).step(0.01).name('Volume').onChange(updateAudio);
 });
 
-// Update the audio playback rate and volume
+// Update the audio playback rate and volume without restarting the audio
 function updateAudio() {
     if (audioElement) {
-        // Log current playback rate and pitch
+        // Log the values
         console.log('Updating Audio:', controls.pitch, controls.volume);
 
         // Adjust playback rate (pitch) and volume
-        audioElement.playbackRate = controls.pitch;
+        audioElement.playbackRate = controls.playbackRate;
         audioElement.volume = controls.volume;
+
+        // Log the updated playback rate
+        console.log('Updated playback rate:', audioElement.playbackRate);
     } else {
         console.log('Audio element not found!');
     }

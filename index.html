@@ -21,35 +21,35 @@
         </script>
     </head>
     
-<body>
-    <div class="container">
-        <h1>Audio Waveform Visualizer</h1>
+    <body>
+        <div class="container">
+            <h1>Audio Waveform Visualizer</h1>
 
-        <!-- File input and file name display -->
-        <div id="fileContainer">
-            <label for="fileInput" id="customFileInput">Choose File</label>
-            <input type="file" id="fileInput" style="display: none;"> <!-- Hidden file input -->
-            <p id="fileName">Music File: None</p> <!-- Default file name text -->
+            <!-- File input and file name display -->
+            <div id="fileContainer">
+                <label for="fileInput" id="customFileInput">Choose File</label>
+                <input type="file" id="fileInput" style="display: none;">
+                <p id="fileName">Music File: None</p>
+            </div>
+
+            <!-- Canvas for waveform -->
+            <canvas id="waveformCanvas"></canvas>
+
+            <!-- Audio control section -->
+            <div id="audioControls">
+                <!-- Play button and controls will be appended here -->
+            </div>
         </div>
 
-        <!-- Canvas for waveform -->
-        <canvas id="waveformCanvas"></canvas>
-        
-        <!-- Audio control section (play button and custom slider) -->
-        <div id="audioControls">
-            <!-- Play button and custom slider will be appended here -->
+        <!-- Custom Playback Slider -->
+        <div id="playbackSliderContainer">
+            <label for="playbackSlider">Playback:</label>
+            <input type="range" id="playbackSlider" min="0" max="100" value="0" step="0.1">
+            <span id="currentTime">0:00</span> / <span id="durationTime">0:00</span>
         </div>
-        
-    </div>
-    <!-- Custom Playback Slider -->
-    <div id="playbackSliderContainer">
-        <label for="playbackSlider">Playback:</label>
-        <input type="range" id="playbackSlider" min="0" max="100" value="0" step="0.1">
-        <span id="currentTime">0:00</span> / <span id="durationTime">0:00</span>
-    </div>
 
-    <script src="scripts/audio-processing.js"></script>
-    <script src="scripts/ui-controls.js"></script>
-    <script src="scripts/app.js"></script>
-</body>
+        <script src="scripts/audio-processing.js"></script>
+        <script src="scripts/ui-controls.js"></script>
+        <script src="scripts/app.js"></script>
+    </body>
 </html>
